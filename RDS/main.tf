@@ -2,10 +2,10 @@
 ##			Variables		   ##
 #################################
 variable "access_key" {
-    default = "AKIAZQF6NHCY5GUMPL43"
+    default = ""
 }
 variable "secret_key" {
-    default = "Jmt6bpBjJrN5BXFWF//YDXCJnbUPqijfHEgI/uDV"
+    default = ""
 }
 variable "allocated" {
     description = "DB Size in GB"
