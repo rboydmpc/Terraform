@@ -1,12 +1,6 @@
 #################################
 ##			Variables		   ##
 #################################
-variable "access_key" {
-    default = ""
-}
-variable "secret_key" {
-    default = ""
-}
 variable "allocated" {
     description = "DB Size in GB"
     default = "20"
