@@ -1,0 +1,13 @@
+{
+    "adGroups": [
+        {
+            "id": 1,
+            "group": "Admins"
+        },
+        {
+            "id": 1,
+            "group": "Read Only"
+        }
+
+    ]
+}    
