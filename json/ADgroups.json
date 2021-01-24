@@ -2,10 +2,12 @@
     "adGroups": [
         {
             "id": 1,
+            "accountid":1,
             "group": "Admins"
         },
         {
-            "id": 1,
+            "id": 2,
+            "accountid":1,
             "group": "Read Only"
         }
 
