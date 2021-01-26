@@ -1,26 +1,20 @@
 {
-    "accountId": {
-        "1": [
-            {
-                "name": "Admins"
-            },
-            {
-                "name": "Read Only"
-            },
-            {
-                "name": "Developers"
-            }
-        ],
-        "2": [
-            {
-                "name": "Admins2"
-            },
-            {
-                "name": "Read Only2"
-            },
-            {
-                "name": "Developers2"
-            }
-        ]
-    }
+    "groups": [
+        {
+            "accountId": 1,
+            "groups": [
+                "Admins",
+                "Read Only",
+                "Developers"
+            ]
+        },
+        {
+            "accountId": 2,
+            "groups": [
+                "Admins2",
+                "Read Only2",
+                "Developers2"
+            ]
+        }
+    ]
 }
