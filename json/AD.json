@@ -12,79 +12,8 @@
                         "MBSOA RFS Informatica",
                         "MBSOA RFS BOBJ"
                     ]
-                },
-                {
-                    "groupName": "WebS",
-                    "adGroups": [
-                        "MBSOA Web Services Web",
-                        "MBSOA Web Services OHS",
-                        "MBSOA Web Services WebLogic",
-                        "MBSOA Web Services DB",
-                        "MBSOA Web Services Informatica",
-                        "MBSOA Web Services BOBJ"
-                    ]
-                },
-                {
-                    "groupName": "MGM",
-                    "adGroups": [
-                        "MBSOA MGM Admins"
-                    ]
                 }
-            ]
-        },
-        {
-            "tenantName": "PPA",
-            "groups": [
-                {
-                    "groupName": "MGM",
-                    "adGroups": [
-                        "MBSOA RFS Web",
-                        "MBSOA RFS OHS",
-                        "MBSOA RFS WebLogic",
-                        "MBSOA RFS DB",
-                        "MBSOA RFS Informatica",
-                        "MBSOA RFS BOBJ"
-                    ]
-                },
-                {
-                    "groupName": "GMEP",
-                    "adGroups": [
-                        "MBSOA Web Services Web",
-                        "MBSOA Web Services OHS",
-                        "MBSOA Web Services WebLogic",
-                        "MBSOA Web Services DB",
-                        "MBSOA Web Services Informatica",
-                        "MBSOA Web Services BOBJ"
-                    ]
-                },
-                {
-                    "groupName": "GNET",
-                    "adGroups": [
-                        "MBSOA MGM Admins"
-                    ]
-                },
-                {
-                    "groupName": "GGPO",
-                    "adGroups": [
-                        "MBSOA MGM Admins"
-                    ]
-                }
-            ]
-        },
-        {
-            "tenantName": "Software Dev",
-            "groups": [
-                {
-                    "groupName": "MGM",
-                    "adGroups": [
-                        "MBSOA RFS Web",
-                        "MBSOA RFS OHS",
-                        "MBSOA RFS WebLogic",
-                        "MBSOA RFS DB",
-                        "MBSOA RFS Informatica",
-                        "MBSOA RFS BOBJ"
-                    ]
-                }
+                
             ]
         }
     ]
