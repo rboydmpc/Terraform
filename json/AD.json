@@ -1,19 +1,15 @@
 [
-        {
-            "tenantName": "MBSOA",
-            "groups": [
-                {
-                    "groupName": "VMware",
-                    "adGroups": [
-                        "MBSOA RFS Web",
-                        "MBSOA RFS OHS",
-                        "MBSOA RFS WebLogic",
-                        "MBSOA RFS DB",
-                        "MBSOA RFS Informatica",
-                        "MBSOA RFS BOBJ"
-                    ]
-                }
-                
-            ]
-        }
+    {
+        "tenantID": 1,
+        "groups": [
+           {
+                "groupName": "VMware",
+                "adGroups": [
+                    "Admins",
+                    "Read Only",
+                    "Developers"
+                ]               
+           }
+        ]
+    }
 ]
