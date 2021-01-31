@@ -3,19 +3,40 @@
         "tenantID": 1,
         "groups": [
            {
-                "groupName": "VMware",
+                "groupId": 1,
                 "adGroups": [
-                    "Admins",
-                    "Read Only",
-                    "Developers"
+                    "1-Admins",
+                    "1-Read Only",
+                    "1-Developers"
                 ]               
            },
            {
-            "groupName": "AllClouds",
+            "groupId": 7,
             "adGroups": [
-                "2-Admins",
-                "2-Read Only",
-                "2-Developers"
+                "1-2-Admins",
+                "1-2-Read Only",
+                "1-2-Developers"
+            ]               
+       }
+        ]
+    },
+    {
+        "tenantID": 6,
+        "groups": [
+           {
+                "groupId": 1,
+                "adGroups": [
+                    "6-Admins",
+                    "6-Read Only",
+                    "6-Developers"
+                ]               
+           },
+           {
+            "groupId": 7,
+            "adGroups": [
+                "6-2-Admins",
+                "6-2-Read Only",
+                "6-2-Developers"
             ]               
        }
         ]
