@@ -9,7 +9,15 @@
                     "Read Only",
                     "Developers"
                 ]               
-           }
+           },
+           {
+            "groupName": 1,
+            "adGroups": [
+                "2-Admins",
+                "2-Read Only",
+                "2-Developers"
+            ]               
+       }
         ]
     }
 ]
