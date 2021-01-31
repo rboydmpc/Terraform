@@ -11,12 +11,12 @@
                 ]               
            },
            {
-            "groupId": 7,
-            "adGroups": [
-                "1-2-Admins",
-                "1-2-Read Only",
-                "1-2-Developers"
-            ]               
+                "groupId": 7,
+                "adGroups": [
+                    "1-2-Admins",
+                    "1-2-Read Only",
+                    "1-2-Developers"
+                ]               
        }
         ]
     },
@@ -32,12 +32,12 @@
                 ]               
            },
            {
-            "groupId": 7,
-            "adGroups": [
-                "6-2-Admins",
-                "6-2-Read Only",
-                "6-2-Developers"
-            ]               
+                "groupId": 7,
+                "adGroups": [
+                    "6-2-Admins",
+                    "6-2-Read Only",
+                    "6-2-Developers"
+                ]               
        }
         ]
     }
