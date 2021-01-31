@@ -21,7 +21,7 @@
         ]
     },
     {
-        "tenantID": 6,
+        "tenantID": 7,
         "groups": [
            {
                 "groupId": 1,
@@ -32,7 +32,7 @@
                 ]               
            },
            {
-                "groupId": 6,
+                "groupId": 7,
                 "adGroups": [
                     "6-2-Admins",
                     "6-2-Read Only",
