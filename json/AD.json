@@ -3,7 +3,7 @@
         "tenantID": 1,
         "groups": [
            {
-                "groupName": 7,
+                "groupName": "VMware",
                 "adGroups": [
                     "Admins",
                     "Read Only",
@@ -11,7 +11,7 @@
                 ]               
            },
            {
-            "groupName": 1,
+            "groupName": "AllClouds",
             "adGroups": [
                 "2-Admins",
                 "2-Read Only",
