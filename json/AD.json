@@ -5,17 +5,17 @@
            {
                 "groupId": 1,
                 "adGroups": [
-                    "1-Admins",
-                    "1-Read Only",
-                    "1-Developers"
+                    "MST-GRP1-Admins",
+                    "MST-GRP1-Read Only",
+                    "MST-GRP1-Developers"
                 ]               
            },
            {
                 "groupId": 7,
                 "adGroups": [
-                    "1-2-Admins",
-                    "1-2-Read Only",
-                    "1-2-Developers"
+                    "MST-GRP7-Admins",
+                    "MST-GRP7-Read Only",
+                    "MST-GRP7-Developers"
                 ]               
        }
         ]
@@ -26,17 +26,17 @@
            {
                 "groupId": 8,
                 "adGroups": [
-                    "6-Admins",
-                    "6-Read Only",
-                    "6-Developers"
+                    "Del-GRP8-Admins",
+                    "Del-GRP8-Read Only",
+                    "Del-GRP8-Developers"
                 ]               
            },
            {
                 "groupId": 9,
                 "adGroups": [
-                    "6-2-Admins",
-                    "6-2-Read Only",
-                    "6-2-Developers"
+                    "Del-GRP9-Admins",
+                    "Del-GRP9-Read Only",
+                    "Del-GRP9-Developers"
                 ]               
        }
         ]
