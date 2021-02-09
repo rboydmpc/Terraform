@@ -25,7 +25,7 @@
                 ]
             },
             {
-                "groupId": 15,
+                "groupId": 3,
                 "adGroups": [
                     "M MGM Test"
                 ]
@@ -47,7 +47,7 @@
                 ]
             },
             {
-                "groupId": 6,
+                "groupId": 7,
                 "adGroups": [
                     "P M Web Test1",
                     "P M Web Test2",
@@ -58,13 +58,13 @@
                 ]
             },
             {
-                "groupId": 7,
+                "groupId": 8,
                 "adGroups": [
                     "P M MGM Test"
                 ]
             },
             {
-                "groupId": 16,
+                "groupId": 6,
                 "adGroups": [
                     "P M MGM Test"
                 ]
