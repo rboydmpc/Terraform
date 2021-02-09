@@ -1,0 +1,90 @@
+[
+    {
+        "tenantId": 3,
+        "groups": [
+            {
+                "groupId": 4,
+                "adGroups": [
+                    "M RFS Test1",
+                    "M RFS Test2",
+                    "M RFS Test3",
+                    "M RFS Test4",
+                    "M RFS Test5",
+                    "M RFS Test6"
+                ]
+            },
+            {
+                "groupId": 5,
+                "adGroups": [
+                    "M Web Test1",
+                    "M Web Test2",
+                    "M Web Test2",
+                    "M Web Test3",
+                    "M Web Test4",
+                    "M Web Test5"
+                ]
+            },
+            {
+                "groupId": 15,
+                "adGroups": [
+                    "M MGM Test"
+                ]
+            }
+        ]
+    },
+    {
+        "tenantId": 4,
+        "groups": [
+            {
+                "groupId": 9,
+                "adGroups": [
+                    "P M RFS Test1",
+                    "P M RFS Test2",
+                    "P M RFS Test3",
+                    "P M RFS Test4",
+                    "P M RFS Test5",
+                    "MBSOA RFS Test6"
+                ]
+            },
+            {
+                "groupId": 6,
+                "adGroups": [
+                    "P M Web Test1",
+                    "P M Web Test2",
+                    "P M Web Test3",
+                    "P M Web Test4",
+                    "P M Web Test5",
+                    "P M Web Test6"
+                ]
+            },
+            {
+                "groupId": 7,
+                "adGroups": [
+                    "P M MGM Test"
+                ]
+            },
+            {
+                "groupId": 16,
+                "adGroups": [
+                    "P M MGM Test"
+                ]
+            }
+        ]
+    },
+    {
+        "tenantId": 5,
+        "groups": [
+            {
+                "groupId": 10,
+                "adGroups": [
+                    "S M RFS Test1",
+                    "S M RFS Test2",
+                    "S M RFS Test3",
+                    "S M RFS Test4",
+                    "S M RFS Test5",
+                    "S M RFS Test6"
+                ]
+            }
+        ]
+    }
+]
