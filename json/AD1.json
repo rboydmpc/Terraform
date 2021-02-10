@@ -72,7 +72,7 @@
         ]
     },
     {
-        "tenantId": 5,
+        "tenantId": 1,
         "groups": [
             {
                 "groupId": 10,
@@ -83,6 +83,17 @@
                     "S M RFS Test4",
                     "S M RFS Test5",
                     "S M RFS Test6"
+                ]
+            },
+            {
+                "groupId": 1,
+                "adGroups": [
+                    "P M Web Test1",
+                    "P M Web Test2",
+                    "P M Web Test3",
+                    "P M Web Test4",
+                    "P M Web Test5",
+                    "P M Web Test6"
                 ]
             }
         ]
