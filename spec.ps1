@@ -1,4 +1,3 @@
-pwsh
 <#param(
     [Parameter(Mandatory)]
     [string]$hostname
