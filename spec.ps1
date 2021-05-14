@@ -9,13 +9,13 @@ pwsh
 ### Variables
 $configJson = '<%=spec.encodeAsJson().toString()%>'
 $configJson = $configJson | convertfrom-json -Depth 10
-$configJson
+#$configJson
 $username = "aXBtYWRtaW4=" #Base64
 $password = "UEBzc3cwcmQh" #Base64
 $hostname = $configJson.instance.hostName
-$configJson.instance.hostName
-$configJson.instance.name
-$configJson.customOptions.name
+#$configJson.instance.hostName
+#$configJson.instance.name
+#$configJson.customOptions.name
 $URL = 'https://ipam.boyd.local/'
 $EIPHeader = @{
     "x-ipm-username" = "$username"
@@ -39,7 +39,7 @@ $tempName = get-random
     $siteid = $getsubnets[0].site_id | where{$_ -ne ""}
     $subnetid = $getsubnets[0].subnet_id | where{$_ -ne ""}
     $subnetname = $getsubnets[0].subnet_name | where{$_ -ne ""}
-    $siteid
+    #$siteid
 
 
 ##Get IP from subnet
@@ -47,16 +47,16 @@ $tempName = get-random
 
 $GetIP = Invoke-RestMethod  -Uri "$URL/rpc/ip_find_free_address?parent_subnet_id=$subnetid&max_find=1" -Method Get -Headers $EIPHeader -ContentType "application/json" -SkipCertificateCheck
 $IP = $GetIP.hostaddr
-$IP
+#$IP
 
 
 ### Add IP address
     $addip = Invoke-RestMethod  -Uri "$URL/rest/ip_add?hostaddr=$IP&name=$hostname&site_id=$siteid" -Method Put -Headers $EIPHeader -SkipCertificateCheck
     #$addip
     #$hostname
-    Write-Host "----------------------------------" -ForegroundColor Green
-    Write-Host "IP Address $IP Successfully Added with hostname $hostname in subnet $subnetname" -ForegroundColor Green
-    Write-Host "----------------------------------" -ForegroundColor Green
+    #Write-Host "----------------------------------" -ForegroundColor Green
+    #Write-Host "IP Address $IP Successfully Added with hostname $hostname in subnet $subnetname" -ForegroundColor Green
+    #Write-Host "----------------------------------" -ForegroundColor Green
 
 
 
