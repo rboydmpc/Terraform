@@ -4,6 +4,38 @@ import boto3
 import time
 from pprint import pprint
 
+# grab current time for role and DB Snapshot names
+time_stamp = time.strftime("%Y%m%d-%H%M%S")
+
+def assume_role(role_arn, region):
+    """Grabs temporary keys of assumed roles from ARN
+
+    Args:
+        role_arn: ARN of the role you want to assume
+        region: AWS Region based on Environment selected input_Environemnt
+
+    Returns:
+        temp_key: Temporary key for assumed role
+        temp_secret: Temporary secret key for assumed role
+    """
+
+    # set resource and region
+    client = boto3.client(
+        'sts',
+        region_name = region
+        )
+
+    response = client.assume_role(
+        RoleArn=role_arn,
+        RoleSessionName='RDSTask' + time_stamp
+        )
+
+    temp_key = response['Credentials']['AccessKeyId']
+    temp_secret = response['Credentials']['SecretAccessKey']
+    temp_token = response['Credentials']['SessionToken']
+
+    return temp_key, temp_secret, temp_token
+
 
 #requests.packages.urllib3.disable_warnings()
 
