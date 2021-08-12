@@ -1,25 +1,11 @@
-import requests
-import sys
 import boto3
-import time
+import datetime
+import logging
+import os
+from operator import itemgetter
 from pprint import pprint
 
-# grab current time for role and DB Snapshot names
-time_stamp = time.strftime("%Y%m%d-%H%M%S")
-
-def assume_role(role_arn, region):
-    """Grabs temporary keys of assumed roles from ARN
-
-    Args:
-        role_arn: ARN of the role you want to assume
-        region: AWS Region based on Environment selected input_Environemnt
-
-    Returns:
-        temp_key: Temporary key for assumed role
-        temp_secret: Temporary secret key for assumed role
-    """
-
-    # set resource and region
+# set resource and region
     client = boto3.client(
         'sts',
         region_name = region
@@ -36,48 +22,83 @@ def assume_role(role_arn, region):
 
     return temp_key, temp_secret, temp_token
 
+def rds_service(temp_key, temp_secret, temp_token, task, db_name, region):
+    """    Sends Boto3 tasks based on task input
 
-#requests.packages.urllib3.disable_warnings()
+    Args:
+        temp_key: Temporary key from assume_role function
+        temp_secret: Temporary secret ket from assume_role function
+        temp_token: Temporary session token from the assume_role function
+        task: Input task to run corresponding Boto3 task
+        db_name: Name of RDS to run task against
+        region: AWS Region based on Environment selected input_Environemnt
 
-#appliance_name = sys.argv[1]
-#command = sys.argv[2]
-#bearer_token = sys.argv[3]
-#memory = int(sys.argv[4]) * 1073741824
+    Returns:
+        AWS JSON message
+    """    
+
+    
+    # set resource and region
+    client = boto3.client(
+        'rds',
+        region_name = region,
+        aws_access_key_id = temp_key,
+        aws_secret_access_key = temp_secret,
+        aws_session_token = temp_token
+        )
+    
+    list_snapshots = client.describe_db_snapshots(
+                    DBInstanceIdentifier=db_name
+                )
+
+    #sorted_keys = sorted(list_snapshots['DBSnapshots'], key=itemgetter('SnapshotCreateTime'), reverse=True)
+    #snapshot_arn = sorted_keys[0]['DBSnapshotArn']
+    #dbsnapshotidentifier = sorted_keys[0]['DBSnapshotIdentifier']
+    #pprint(dbsnapshotidentifier)
+    pprint(list_snapshots)
+    
+ def copy_latest_snapshot(db_identifier):
+    timestamp = '{:%Y%m%d-%H%M%S}'.format(datetime.datetime.now())
+    snapshot_copy = f"snapshot-copy{timestamp}"
+    logger.info(f"Find latest snapshot of: {db_identifier}")
+    response = rds.describe_db_snapshots(DBInstanceIdentifier=db_identifier, SnapshotType='automated')
+    sorted_keys = sorted(response['DBSnapshots'], key=itemgetter('SnapshotCreateTime'), reverse=True)
+    snapshot_id = sorted_keys[0]['DBSnapshotIdentifier']
+    logger.info(f"Wait for snapshot: {snapshot_id}")
+    waiter.wait(
+        DBInstanceIdentifier=db_identifier,
+        DBSnapshotIdentifier=snapshot_id,
+        WaiterConfig={'Delay': 5, 'MaxAttempts': 12}
+    )
+    logger.info(f"Create snapshot copy: {snapshot_copy} of {db_identifier}")
+    rds.copy_db_snapshot(SourceDBSnapshotIdentifier=snapshot_id,
+                         TargetDBSnapshotIdentifier=snapshot_copy)
+    return snapshot_copy
+    
+def main():
+
+    # grab inputs from morpheus dictory
+    input_arn = 'arn:aws-us-gov:iam::147884775654:role/CICD-rds-role' #morpheus['customOptions']['RDSRoleARN']
+    input_task = 'test' #morpheus['customOptions']['RDSTask']
+    input_db_name = 'boyd881211'  #morpheus['customOptions']['RDSInstance']
+    input_environemnt = 'Prod' #morpheus['customOptions']['RDSENV']
+    
+    # Check instance environment
+    if input_environemnt == "DR":
+      region = 'us-gov-east-1'
+    else:
+      region = 'us-gov-west-1'
 
 
-#def execute_rest(method, url, bearer_token):
-#    headers = {
-#        'Authorization': 'BEARER ' + bearer_token + '',
-#        'Content-Type': 'application/json'
-#    }
-#    response = requests.request(
-#        method, url, headers=headers, verify=False)
-#    json = response.json()
-#
-#
-#    return json
-
-#def get_plans(appliance_name, bearer_token):
-#    url = "https://"+appliance_name+"/api/service-plans?includeZones=true&includeInactive=true&max=1000"
-
-#response = execute_rest("GET", url, bearer_token)
-#    json = response['servicePlans']
-
-#    return json
-
-#def disable_plans(appliance_name, bearer_token, memory):
-#        plans = get_plans(appliance_name, bearer_token)
-#        disable = [plan for plan in plans if plan['maxMemory'] > memory and plan['active'] is True and plan['name'] not in ['Amazon R5 2xLarge - 8 Core, 64GB Memory']]
-#        print("These plans have been deactivated:")
-#        print("---------------------------------------------------")
-#        for item in disable:
-#            plan_id = str(item['id'])
-#            name = item['name']
-#            url = "https://"+appliance_name+"/api/service-plans/"+plan_id+'/deactivate'
-#            response = execute_rest("PUT", url, bearer_token)
-#            print(name + "  ---- Deactivated")
+    # grab temp keys
+    temp_key, temp_secret, temp_token = assume_role(input_arn, region)
+    #pprint(temp_key)
+    #pprint(temp_secret)
+    #pprint(temp_token)
 
 
-
-#if command == "disable_plans":
-#   disable_plans(appliance_name, bearer_token, memory)
+    # send task to db with temp keys
+    rds_service(temp_key, temp_secret, temp_token, input_task, input_db_name, region)
+if __name__ == "__main__":
+    main()
+   
