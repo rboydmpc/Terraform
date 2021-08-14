@@ -66,8 +66,9 @@ def rds_client(temp_key, temp_secret, temp_token, db_name, region):
     
 
 
-def get_latest_snapshot_arn(client):
+def get_latest_snapshot_arn(client, db_identifier):
     response = client.describe_db_snapshots(
+        DBSnapshotIdentifier=, 
         IncludeShared=True,
         SnapshotType="shared",
     )
@@ -112,7 +113,7 @@ def main():
     
     #copy DB snapshot
     
-    response, snapshot_arn = get_latest_snapshot_arn(client)
+    response, snapshot_arn = get_latest_snapshot_arn(client, input_db_name)
     pprint(response)
     pprint(snapshot_arn)
     #pprint(return_snapshot)
