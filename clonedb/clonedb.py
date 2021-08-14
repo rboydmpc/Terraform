@@ -82,12 +82,6 @@ def copy_latest_snapshot(db_identifier, client, waiter):
     client.copy_db_snapshot(
         SourceDBSnapshotIdentifier=snapshot_id,
         TargetDBSnapshotIdentifier=snapshot_copy,
-        Tags=[
-            {
-                'Key': 'DBSnapshotArn',
-                'Value': DBSnapshotId
-            },
-        ]
     )
     #pprint(logger.info)
     return snapshot_copy, snapshot_id, response, DBSnapshotId
@@ -119,7 +113,8 @@ def main():
     #input_task = 'test' #morpheus['customOptions']['RDSTask']
     input_db_name = 'boyd881211'  #morpheus['customOptions']['RDSInstance']
     input_environemnt = 'Prod' #morpheus['customOptions']['RDSENV']
-    input_nonprod_accout = '940330411695'
+    input_nonprod_account = '940330411695'
+    input_prod_account = '147884775654'
     
     # Check instance environment
     if input_environemnt == "DR":
@@ -146,7 +141,7 @@ def main():
     
     #copy DB snapshot
     snapshot_copy, snapshot_id, response, DBSnapshotId = copy_latest_snapshot(input_db_name, client, waiter)
-    share_snapshot = share_copy_snapshot(input_db_name, snapshot_copy, input_nonprod_accout, client, waiter)
+    share_snapshot = share_copy_snapshot(input_db_name, snapshot_copy, input_nonprod_account, client, waiter)
     #get_latest_snapshot_arn(client)
     #pprint(return_snapshot)
     #pprint(return_snapshot)
@@ -154,6 +149,10 @@ def main():
     #pprint('snapshotID')
     pprint(DBSnapshotId)
     #pprint(logger.info)
-    
+    DBSnapshotArn = "arn:aws-us-gov:rds:" + region + ":" + input_prod_account + ":snapshot:" + snapshot_copy
+    #arn:aws-us-gov:rds:us-gov-west-1:147884775654:snapshot:snapshot-copy20210813-190203
+    pprint(DBSnapshotArn)
+
+
 if __name__ == "__main__":
     main()
