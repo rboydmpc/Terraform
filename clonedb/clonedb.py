@@ -71,6 +71,7 @@ def copy_latest_snapshot(db_identifier, client, waiter):
     response = client.describe_db_snapshots(DBInstanceIdentifier=db_identifier, SnapshotType='automated')
     sorted_keys = sorted(response['DBSnapshots'], key=itemgetter('SnapshotCreateTime'), reverse=True)
     snapshot_id = sorted_keys[0]['DBSnapshotIdentifier']
+    DBSnapshotId = sorted_keys[0]['DBSnapshotArn']
     #logger.info(f"Wait for snapshot: {snapshot_id}")
     waiter.wait(
         DBInstanceIdentifier=db_identifier,
@@ -78,10 +79,18 @@ def copy_latest_snapshot(db_identifier, client, waiter):
         WaiterConfig={'Delay': 5, 'MaxAttempts': 12}
     )
     #logger.info(f"Create snapshot copy: {snapshot_copy} of {db_identifier}")
-    client.copy_db_snapshot(SourceDBSnapshotIdentifier=snapshot_id,
-                         TargetDBSnapshotIdentifier=snapshot_copy)
+    client.copy_db_snapshot(
+        SourceDBSnapshotIdentifier=snapshot_id,
+        TargetDBSnapshotIdentifier=snapshot_copy,
+        Tags=[
+            {
+                'Key': 'DBSnapshotArn',
+                'Value': DBSnapshotId
+            },
+        ]
+    )
     #pprint(logger.info)
-    return snapshot_copy
+    return snapshot_copy, snapshot_id, response, DBSnapshotId
 
 def share_copy_snapshot(db_identifier, snapshot_id, nonprodaccount, client, waiter):
         #max_wait = int(os.environ.get("MAX_WAIT"))
@@ -100,18 +109,6 @@ def share_copy_snapshot(db_identifier, snapshot_id, nonprodaccount, client, wait
             ValuesToAdd=[nonprodaccount]
         )
 
-def get_latest_snapshot_arn(client):
-    response = client.describe_db_snapshots(
-        IncludeShared=True,
-        SnapshotType="shared",
-    )
-    if not response['DBSnapshots']:
-        return
-    sorted_keys = sorted(response['DBSnapshots'], key=itemgetter('SnapshotCreateTime'), reverse=True)
-    snapshot_arn = sorted_keys[0]['DBSnapshotArn']
-    return snapshot_arn
-    pprint(response)
-    pprint(snapshot_arn)
 
     
 def main():
@@ -132,7 +129,7 @@ def main():
 
     ####From Prod AWS
     # grab temp keys for Prod
-    temp_key, temp_secret, temp_token = assume_role(input_nonprod_arn, region)
+    temp_key, temp_secret, temp_token = assume_role(input_prod_arn, region)
     #pprint(temp_key)
     #pprint(temp_secret)
     #pprint(temp_token)
@@ -148,12 +145,14 @@ def main():
                 )
     
     #copy DB snapshot
-    snapshot_copy = copy_latest_snapshot(input_db_name, client, waiter)
+    snapshot_copy, snapshot_id, response, DBSnapshotId = copy_latest_snapshot(input_db_name, client, waiter)
     share_snapshot = share_copy_snapshot(input_db_name, snapshot_copy, input_nonprod_accout, client, waiter)
-    get_latest_snapshot_arn(client)
+    #get_latest_snapshot_arn(client)
     #pprint(return_snapshot)
     #pprint(return_snapshot)
-    pprint(snapshot_copy)
+    #pprint(snapshot_copy)
+    #pprint('snapshotID')
+    pprint(DBSnapshotId)
     #pprint(logger.info)
     
 if __name__ == "__main__":
