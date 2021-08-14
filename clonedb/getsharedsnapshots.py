@@ -68,7 +68,7 @@ def rds_client(temp_key, temp_secret, temp_token, db_name, region):
 
 def get_latest_snapshot_arn(client, db_identifier):
     response = client.describe_db_snapshots(
-        DBSnapshotIdentifier=, 
+        DBSnapshotIdentifier="arn:aws-us-gov:rds:us-gov-west-1:147884775654:snapshot:snapshot-copy20210814-045953",        
         IncludeShared=True,
         SnapshotType="shared",
     )
@@ -96,6 +96,11 @@ def main():
     else:
       region = 'us-gov-west-1'
 
+    #pattern = "iam::(.*?):role"
+    myString=input_prod_arn[input_prod_arn.find("iam::")+5:input_prod_arn.find(":role")]
+    pprint(myString)
+    #substring = re.search('iam::(.*):role', s)
+    #pprint(substring.group(1))
     ####From Prod AWS
     # grab temp keys for Prod
     temp_key, temp_secret, temp_token = assume_role(input_nonprod_arn, region)
