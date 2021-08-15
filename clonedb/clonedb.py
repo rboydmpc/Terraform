@@ -103,7 +103,17 @@ def share_copy_snapshot(db_identifier, snapshot_id, nonprodaccount, client, wait
             ValuesToAdd=[nonprodaccount]
         )
 
-
+def get_latest_snapshot_arn(client, db_identifier):
+    response = client.describe_db_snapshots(
+        DBSnapshotIdentifier=db_identifier,        
+        IncludeShared=True,
+        SnapshotType="shared",
+    )
+    #if not response['DBSnapshots']:
+    #    return 
+    sorted_keys = sorted(response['DBSnapshots'], key=itemgetter('SnapshotCreateTime'), reverse=True)
+    snapshot_arn = sorted_keys[0]['DBSnapshotArn']
+    return response, snapshot_arn
     
 def main():
 
@@ -125,9 +135,9 @@ def main():
     ####From Prod AWS
     # grab temp keys for Prod
     temp_key, temp_secret, temp_token = assume_role(input_prod_arn, region)
-    #pprint(temp_key)
-    #pprint(temp_secret)
-    #pprint(temp_token)
+    pprint(temp_key)
+    pprint(temp_secret)
+    pprint(temp_token)
 
 
     # connect rds client
@@ -142,16 +152,33 @@ def main():
     #copy DB snapshot
     snapshot_copy, snapshot_id, response, DBSnapshotId = copy_latest_snapshot(input_db_name, client, waiter)
     share_snapshot = share_copy_snapshot(input_db_name, snapshot_copy, input_nonprod_account, client, waiter)
+    
+    
     #get_latest_snapshot_arn(client)
     #pprint(return_snapshot)
     #pprint(return_snapshot)
     #pprint(snapshot_copy)
     #pprint('snapshotID')
-    pprint(DBSnapshotId)
+    #pprint(DBSnapshotId)
     #pprint(logger.info)
     DBSnapshotArn = "arn:aws-us-gov:rds:" + region + ":" + input_prod_account + ":snapshot:" + snapshot_copy
     #arn:aws-us-gov:rds:us-gov-west-1:147884775654:snapshot:snapshot-copy20210813-190203
     pprint(DBSnapshotArn)
+
+     ##Connect to nonprod account
+    temp_key, temp_secret, temp_token = assume_role(input_nonprod_arn, region)
+    client = rds_client(temp_key, temp_secret, temp_token, input_db_name, region)
+    
+    #pprint(temp_key)
+    #pprint(temp_secret)
+    #pprint(temp_token)
+    
+    response, snapshot_arn = get_latest_snapshot_arn(client, DBSnapshotArn)
+    #response, snapshot_arn = get_latest_snapshot_arn(client, input_db_name)
+    #pprint(response)
+    pprint(snapshot_arn)
+
+
 
 
 if __name__ == "__main__":
