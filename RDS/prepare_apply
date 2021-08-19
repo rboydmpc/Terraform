@@ -6,7 +6,7 @@ from pprint import pprint
 
 appliance_name = "dmc3.ginniemae.cloud"
 bearer_token = "70baa440-2e99-4652-9249-9977b5fbf93b"
-
+app = "1509"
 
 def execute_rest(method, url, bearer_token, data):
     headers = {
@@ -14,15 +14,15 @@ def execute_rest(method, url, bearer_token, data):
         'Content-Type': 'application/json'
     }
     
-    response = requests.request(method, url, headers=headers, data=data)
+    response = requests.request(method, url, headers=headers, json=data)
     json = response.json()
-
+    pprint(data)
     #pprint(json)
     return json
  
 
-def get_vars(appliance_name, bearer_token):
-    url = "https://"+appliance_name+"/api/apps/1314/prepare-apply"
+def get_vars(appliance_name, bearer_token, app):
+    url = "https://"+appliance_name+"/api/apps/"+app+"/prepare-apply"
     data = ({
       "templateParameter": {
         "apply_immediately": False
@@ -31,10 +31,36 @@ def get_vars(appliance_name, bearer_token):
     response = execute_rest("POST", url, bearer_token, data)
     #json = response
     #pprint(response)
-    pprint (response['data']['templateParameter'])
+    #pprint (response['data']['templateParameter'])
     (response['data']['templateParameter']['apply_immediately']) = 'true'
-    pprint (response['data']['templateParameter'])
-    #return json
+    #pprint (response['data']['templateParameter'])
+    parameters = (response['data']['templateParameter'])
+    return parameters
+
+def apply_state(appliance_name, bearer_token, app, parameters):
+    url = "https://"+appliance_name+"/api/apps/"+app+"/apply"
+    data = ({
+      "templateParameter": parameters
+    })
+    response = execute_rest("POST", url, bearer_token, data)
+    #pprint(data)
+    #json = response
+    #pprint(response)
+    #pprint (response['data']['templateParameter'])
+    #(response['data']['templateParameter']['apply_immediately']) = 'true'
+    #pprint (response['data']['templateParameter'])
+    #parameters = (response['data']['templateParameter'])
+    #return parameters
+
+parameters = get_vars(appliance_name, bearer_token, app)
+apply_state(appliance_name, bearer_token, app, parameters)
+
+#data = ({
+#      "templateParameter": parameters
+#    })
+
+#pprint(parameters)
 
 
-get_vars(appliance_name, bearer_token)
+
+#pprint (parameters)
