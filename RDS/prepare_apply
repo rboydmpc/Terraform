@@ -5,8 +5,8 @@ from pprint import pprint
 #requests.packages.urllib3.disable_warnings()
 
 appliance_name = "dmc3.ginniemae.cloud"
-bearer_token = "70baa440-2e99-4652-9249-9977b5fbf93b"
-app = "1509"
+bearer_token = "d877d0fd-17b8-4e41-bc71-b01fe8619cbb"
+app = "1488"
 
 def execute_rest(method, url, bearer_token, data):
     headers = {
@@ -16,7 +16,7 @@ def execute_rest(method, url, bearer_token, data):
     
     response = requests.request(method, url, headers=headers, json=data)
     json = response.json()
-    pprint(data)
+    #pprint(data)
     #pprint(json)
     return json
  
@@ -32,7 +32,8 @@ def get_vars(appliance_name, bearer_token, app):
     #json = response
     #pprint(response)
     #pprint (response['data']['templateParameter'])
-    (response['data']['templateParameter']['apply_immediately']) = 'true'
+    #(response['data']['templateParameter']['apply_immediately']) = 'true'
+    (response['data']['templateParameter']['snapshot_identifier']) = 'arn:aws-us-gov:rds:us-gov-west-1:147884775654:snapshot:snapshot-copy20210815-144908'
     #pprint (response['data']['templateParameter'])
     parameters = (response['data']['templateParameter'])
     return parameters
