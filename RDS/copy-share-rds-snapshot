@@ -125,7 +125,7 @@ def main():
     input_environemnt = 'Prod' #morpheus['customOptions']['RDSENV']
     input_nonprod_account = '940330411695'
     input_prod_account = '147884775654'
-    nonprod_account = input_prod_arn[input_nonprod_arn.find("iam::")+5:input_prod_arn.find(":role")]
+    nonprod_account = input_nonprod_arn[input_nonprod_arn.find("iam::")+5:input_nonprod_arn.find(":role")]
     prod_account = input_prod_arn[input_prod_arn.find("iam::")+5:input_prod_arn.find(":role")]
     pprint(input_nonprod_account)
     pprint(nonprod_account)
