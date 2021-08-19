@@ -125,6 +125,10 @@ def main():
     input_environemnt = 'Prod' #morpheus['customOptions']['RDSENV']
     input_nonprod_account = '940330411695'
     input_prod_account = '147884775654'
+    nonprod_acct = input_prod_arn[input_nonprod_arn.find("iam::")+5:input_prod_arn.find(":role")]
+    prod_acct = input_prod_arn[input_prod_arn.find("iam::")+5:input_prod_arn.find(":role")]
+    pprint(input_nonprod_account)
+    pprint(prod_acct)
     
     # Check instance environment
     if input_environemnt == "DR":
