@@ -121,13 +121,15 @@ def main():
     input_prod_arn = 'arn:aws-us-gov:iam::147884775654:role/AWSCrossAccountRoleForTerraform'  #morpheus['customOptions']['RDSRoleARN']
     input_nonprod_arn = 'arn:aws-us-gov:iam::940330411695:role/AWSCrossAccountRoleForTerraform'  #morpheus['customOptions']['RDSRoleARN']
     #input_task = 'test' #morpheus['customOptions']['RDSTask']
-    input_db_name = 'boyd881211'  #morpheus['customOptions']['RDSInstance']
+    input_db_name = 'boyd888'  #morpheus['customOptions']['RDSInstance']
     input_environemnt = 'Prod' #morpheus['customOptions']['RDSENV']
     input_nonprod_account = '940330411695'
     input_prod_account = '147884775654'
     nonprod_acct = input_prod_arn[input_nonprod_arn.find("iam::")+5:input_prod_arn.find(":role")]
     prod_acct = input_prod_arn[input_prod_arn.find("iam::")+5:input_prod_arn.find(":role")]
     pprint(input_nonprod_account)
+    pprint(nonprod_account)
+    pprint(input_prod_account)
     pprint(prod_acct)
     
     # Check instance environment
@@ -139,9 +141,9 @@ def main():
     ####From Prod AWS
     # grab temp keys for Prod
     temp_key, temp_secret, temp_token = assume_role(input_prod_arn, region)
-    pprint(temp_key)
-    pprint(temp_secret)
-    pprint(temp_token)
+    #pprint(temp_key)
+    #pprint(temp_secret)
+    #pprint(temp_token)
 
 
     # connect rds client
