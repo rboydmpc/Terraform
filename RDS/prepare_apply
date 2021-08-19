@@ -8,16 +8,12 @@ appliance_name = "dmc3.ginniemae.cloud"
 bearer_token = "70baa440-2e99-4652-9249-9977b5fbf93b"
 
 
-def execute_rest(method, url, bearer_token):
+def execute_rest(method, url, bearer_token, data):
     headers = {
         'Authorization': 'BEARER ' + bearer_token + '',
         'Content-Type': 'application/json'
     }
-    data = ({
-  "templateParameter": {
-    "apply_immediately": False
-  }
-})
+    
     response = requests.request(method, url, headers=headers, data=data)
     json = response.json()
 
@@ -27,8 +23,12 @@ def execute_rest(method, url, bearer_token):
 
 def get_vars(appliance_name, bearer_token):
     url = "https://"+appliance_name+"/api/apps/1314/prepare-apply"
-
-    response = execute_rest("POST", url, bearer_token)
+    data = ({
+      "templateParameter": {
+        "apply_immediately": False
+      }
+    })
+    response = execute_rest("POST", url, bearer_token, data)
     #json = response
     #pprint(response)
     pprint (response['data']['templateParameter'])
