@@ -157,7 +157,7 @@ def main():
     
     #copy DB snapshot
     snapshot_copy, snapshot_id, response, DBSnapshotId = copy_latest_snapshot(input_db_name, client, waiter)
-    share_snapshot = share_copy_snapshot(input_db_name, snapshot_copy, input_nonprod_account, client, waiter)
+    share_snapshot = share_copy_snapshot(input_db_name, snapshot_copy, nonprod_account, client, waiter)
     
     
     #get_latest_snapshot_arn(client)
@@ -167,7 +167,7 @@ def main():
     #pprint('snapshotID')
     #pprint(DBSnapshotId)
     #pprint(logger.info)
-    DBSnapshotArn = "arn:aws-us-gov:rds:" + region + ":" + input_prod_account + ":snapshot:" + snapshot_copy
+    DBSnapshotArn = "arn:aws-us-gov:rds:" + region + ":" + prod_account + ":snapshot:" + snapshot_copy
     #arn:aws-us-gov:rds:us-gov-west-1:147884775654:snapshot:snapshot-copy20210813-190203
     pprint(DBSnapshotArn)
 
