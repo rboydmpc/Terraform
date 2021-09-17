@@ -8,7 +8,7 @@ data "aws_availability_zones" "available" {
 }
 
 data "aws_vpc" "selected" {
-  id = "vpc-0d9ff1c5e933e72e1"
+  id = "vpc-d4c954ae"
 }
 
 data "aws_subnet_ids" "all" {
