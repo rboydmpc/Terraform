@@ -27,21 +27,21 @@ module "mod_rds" {
     snapshot_id             = var.snapshot_id
 }
 
-module "mod_secretsmanager" {
-    source = "./modules/SecretsManager/"
+#module "mod_secretsmanager" {
+#    source = "./modules/SecretsManager/"
     
-    #inputs:
-    soc_access_key          = var.soc_access_key
-    soc_secret_key          = var.soc_secret_key
-    secret_name             = format("%s/%s/RDS/%s", var.client, var.account_name, var.db_name)
-    secret_value_dbname     = lower(var.db_name)
-    secret_value_dbendpoint = module.mod_rds.new_db_instance_endpoint
-    secret_value_dbarn      = module.mod_rds.new_db_instance_arn
-    secret_value_dbusername = module.mod_rds.new_db_instance_username
-    secret_value_dbpassword = module.mod_rds.new_db_instance_password
-    db_port                 = var.db_port
-    account_name            = var.account_name
-    engine_name             = var.engine_name
-    secret_cmk_id           = var.secret_cmk_id
-    cicd_role_arn           = var.cicd_role_arn
-}
+#    #inputs:
+#    soc_access_key          = var.soc_access_key
+#    soc_secret_key          = var.soc_secret_key
+#    secret_name             = format("%s/%s/RDS/%s", var.client, var.account_name, var.db_name)
+#    secret_value_dbname     = lower(var.db_name)
+#    secret_value_dbendpoint = module.mod_rds.new_db_instance_endpoint
+#    secret_value_dbarn      = module.mod_rds.new_db_instance_arn
+#    secret_value_dbusername = module.mod_rds.new_db_instance_username
+#    secret_value_dbpassword = module.mod_rds.new_db_instance_password
+#    db_port                 = var.db_port
+#    account_name            = var.account_name
+#    engine_name             = var.engine_name
+#    secret_cmk_id           = var.secret_cmk_id
+#    cicd_role_arn           = var.cicd_role_arn
+#}
