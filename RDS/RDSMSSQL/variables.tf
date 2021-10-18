@@ -4,7 +4,7 @@
 variable "region" {
   description = "Region where the resources will be created"
   type        = string 
-  default = "us-gov-west-1"
+  default = "us-west-1"
 }
 
 variable "access_key"{
@@ -20,7 +20,7 @@ variable "secret_key" {
 variable "soc_region" {
   description = "Region for the SOC account (to create the Secret)"
   type        = string 
-  default = "us-gov-west-1"
+  default = "us-west-1"
 }
 
 variable "soc_access_key"{
