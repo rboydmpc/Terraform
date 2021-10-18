@@ -2,7 +2,7 @@
     Provider variables
 */
 variable "region" {
-  #default = "us-gov-west-1"
+  #default = "us-west-1"
 }
 
 variable "access_key"{
@@ -66,13 +66,13 @@ variable "family" {
 variable "engine_name" {
   description = "Specifies the name of the engine that this option group should be associated with"
   type        = string
-  #default     = "sqlserver-ee"
+  default     = "sqlserver-ee"
 }
 
 variable "major_engine_version" {
   description = "Specifies the major version of the engine that this option group should be associated with"
   type        = string
-  #default     = "15.00"
+  default     = "15.00"
 }
 
 /***
