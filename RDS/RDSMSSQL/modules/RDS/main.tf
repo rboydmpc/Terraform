@@ -58,7 +58,7 @@ resource "aws_security_group" "db_sg" {
     from_port   = var.db_port
     to_port     = var.db_port
     protocol    = "tcp"
-    cidr_blocks = ["${data.aws_vpc.selected.cidr_block}", var.workspaces_cidr]
+    cidr_blocks = cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0
@@ -94,9 +94,9 @@ resource "aws_db_instance" "new_db" {
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
   copy_tags_to_snapshot       = true
-  monitoring_interval         = 1
-  monitoring_role_arn         = aws_iam_role.rds_iam_role.arn
-  enabled_cloudwatch_logs_exports = ["agent", "error"] 
+  #monitoring_interval         = 1
+  3monitoring_role_arn         = aws_iam_role.rds_iam_role.arn
+  #enabled_cloudwatch_logs_exports = ["agent", "error"] 
   engine                      = var.engine_name
   engine_version              = var.engine_version
   character_set_name          = var.character_set_name
