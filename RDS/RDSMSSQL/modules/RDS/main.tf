@@ -24,28 +24,6 @@ locals {
 }
 
 
-#data "aws_iam_policy_document" "enhanced_monitoring" {
-#  statement {
-#    actions = [
-#      "sts:AssumeRole",
-#    ]
-#    principals {
-#      type        = "Service"
-#      identifiers = ["monitoring.rds.amazonaws.com", "rds.amazonaws.com"]
-#    }
-#  }
-#}
-
-#resource "aws_iam_role" "rds_iam_role" {
-#  name               = format("%s-rds-iam-role", lower(var.db_name))
-#  assume_role_policy = data.aws_iam_policy_document.enhanced_monitoring.json
-#}
-
-#resource "aws_iam_role_policy_attachment" "enhanced_monitoring" {
-#    role       = aws_iam_role.rds_iam_role.name
-#    policy_arn = "arn:aws-us-gov:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
-#}
-
 resource "aws_db_subnet_group" "group" {
   name       = format("%s-sngrp", lower(var.db_name))
   subnet_ids = local.var_az_subnets.value
@@ -138,7 +116,7 @@ resource "aws_db_instance" "new_db" {
   skip_final_snapshot         = true
   final_snapshot_identifier   = "rds-${var.db_name}-final-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
   license_model               = "license-included"
-  snapshot_identifier                 = var.snapshot_id
+  snapshot_identifier         = var.snapshot_id
   
   lifecycle {
     ignore_changes = [
