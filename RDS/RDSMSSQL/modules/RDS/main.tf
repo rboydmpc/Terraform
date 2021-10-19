@@ -125,7 +125,7 @@ resource "aws_db_instance" "new_db" {
   }
 
   tags = {
-          Name = "${join("-", ["${var.db_name}", "${var.client}", "RDS"])}"
+          Name = "${join("-", ["${var.db_name}", "RDS"])}"
           Environment = "${var.environment}"
           Author = "Effectual Terraform script"
           Date = "${timestamp()}"
