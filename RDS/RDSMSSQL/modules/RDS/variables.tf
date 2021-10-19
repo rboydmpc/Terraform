@@ -162,3 +162,8 @@ variable "apply_immediately" {
   description = "apply changes immediately do not wait for maintenance window "
   type        = string
 }
+
+variable "password" {
+  description = "DB Password"
+  type        = string
+}
