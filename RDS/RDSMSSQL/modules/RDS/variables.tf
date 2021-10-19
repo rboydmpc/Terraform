@@ -19,16 +19,11 @@ variable "secret_key" {
 /**
     Generic variables
 */
-variable "client"{
-  description = "Name of the client"
-  type        = string 
-  default     = "Deloitte / Ginnie Mae"
-}
 
 variable "environment"{
   description = "Environment."
   type        = string 
-  #default     = ""
+  default     = "PRD"
 }
 
 
@@ -45,11 +40,6 @@ variable "vpc_subnet_az2"{
   type        = string  
 }
 
-variable "workspaces_cidr"{
-  description = "CIDR block of the Workspaces subnet"
-  type        = string  
-  #default    = "10.50.0.0/20"
-}
 
 /***
     Variables required to create a parameter group
