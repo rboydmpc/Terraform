@@ -17,6 +17,8 @@ locals {
   var_az_subnets = {
     value = compact([local.vpc_subnet_az1, local.vpc_subnet_az2])
   }
+  time = "${timestamp()}"
+  
 }
 
 
