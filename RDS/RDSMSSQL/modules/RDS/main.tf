@@ -31,7 +31,6 @@ resource "aws_db_subnet_group" "group" {
   }
   tags = {
     Author = "Effectual Terraform script"
-    Date = formatdate("YYYYMMDDhhmmss", timestamp())
   }
   
 }
