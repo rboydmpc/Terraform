@@ -115,5 +115,5 @@ resource "aws_db_option_group" "db_group" {
   option_group_description = format("Option group for %s", var.db_name)
   engine_name              = var.engine_name
   major_engine_version     = var.major_engine_version
-
+}
   
