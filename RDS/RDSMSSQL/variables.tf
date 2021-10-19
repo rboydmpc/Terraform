@@ -4,7 +4,7 @@
 variable "region" {
   description = "Region where the resources will be created"
   type        = string 
-  default = "us-west-1"
+  default = "us-east-1"
 }
 
 variable "access_key"{
@@ -17,21 +17,21 @@ variable "secret_key" {
   type        = string 
 }
 
-variable "soc_region" {
-  description = "Region for the SOC account (to create the Secret)"
-  type        = string 
-  default = "us-west-1"
-}
+#variable "soc_region" {
+#  description = "Region for the SOC account (to create the Secret)"
+#  type        = string 
+#  default = "us-east-1"
+#}
 
-variable "soc_access_key"{
-  description = "Access Key for the SOC account (to create the Secret)"
-  type        = string 
-}
+#variable "soc_access_key"{
+#  description = "Access Key for the SOC account (to create the Secret)"
+#  type        = string 
+#}
 
-variable "soc_secret_key" {
-  description = "Secret Key for the SOC account (to create the Secret)"
-  type        = string 
-}
+#variable "soc_secret_key" {
+#  description = "Secret Key for the SOC account (to create the Secret)"
+#  type        = string 
+#}
 
 /**
     Generic variables
@@ -61,15 +61,15 @@ variable "environment"{
 #   default = ""
 #}
 
-variable "secret_cmk_id" {
-  description = "The ID of the Customer Managed Key used to encrypt the Secret"
-  type        = string
-}
+#variable "secret_cmk_id" {
+#  description = "The ID of the Customer Managed Key used to encrypt the Secret"
+#  type        = string
+#}
 
-variable "cicd_role_arn"{
-  description = "The ARN of the CICD Role that will be given access to the Secret"
-  type        = string
-}
+#variable "cicd_role_arn"{
+#  description = "The ARN of the CICD Role that will be given access to the Secret"
+#  type        = string
+#}
 
 /**
     Variables required to create the Security Group, IAM Role and Policy    
@@ -77,13 +77,13 @@ variable "cicd_role_arn"{
 variable "vpc_subnet_az1"{
   description = "ID of the VPC subnet in the 1st Availability Zone"
   type        = string
-  default     = ""
+  default     = "subnet-ed470bc3"
 }
 
 variable "vpc_subnet_az2"{
   description = "ID of the VPC subnet in the 2nd Availability Zone"
   type        = string  
-  default     = ""
+  default     = "subnet-927736f5"
 }
 
 variable "workspaces_cidr"{
