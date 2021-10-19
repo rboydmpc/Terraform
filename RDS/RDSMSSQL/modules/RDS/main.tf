@@ -95,7 +95,7 @@ resource "aws_db_instance" "new_db" {
   maintenance_window          = var.maintenance_window
   copy_tags_to_snapshot       = true
   #monitoring_interval         = 1
-  3monitoring_role_arn         = aws_iam_role.rds_iam_role.arn
+  #monitoring_role_arn         = aws_iam_role.rds_iam_role.arn
   #enabled_cloudwatch_logs_exports = ["agent", "error"] 
   engine                      = var.engine_name
   engine_version              = var.engine_version
