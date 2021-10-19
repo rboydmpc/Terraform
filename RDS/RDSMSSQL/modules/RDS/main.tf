@@ -1,8 +1,4 @@
 # Assign null values to empty string to make conpact() work
-locals {
-  vpc_subnet_az1 = length(regexall("^subnet", var.vpc_subnet_az1)) > 0 ? var.vpc_subnet_az1 : ""
-  vpc_subnet_az2 = length(regexall("^subnet", var.vpc_subnet_az2)) > 0 ? var.vpc_subnet_az2 : ""
-}
 
 locals {
   # Conditionally set the iops value.
@@ -28,11 +24,6 @@ resource "aws_db_subnet_group" "group" {
     ]
   }
   
-  tags = {
-    Name = "${var.db_name} DB subnet group"
-    Author = "Effectual Terraform script"
-    Date = "${timestamp()}"
-  }
 }
 
 data "aws_subnet" "this_subnet" {
@@ -60,17 +51,7 @@ resource "aws_security_group" "db_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  lifecycle {
-    ignore_changes = [
-      tags["Date"],
-    ]
-  }
 
-  tags = {
-    Name = "${var.db_name} Database Security Group"
-    Author = "Effectual Terraform script"
-    Date = "${timestamp()}"
-  }
 }
 
 resource "aws_db_instance" "new_db" {
@@ -112,18 +93,7 @@ resource "aws_db_instance" "new_db" {
   license_model               = "license-included"
   snapshot_identifier         = var.snapshot_id
   
-  lifecycle {
-    ignore_changes = [
-      tags["Date"],
-    ]
-  }
 
-  tags = {
-          Name = "${join("-", ["${var.db_name}", "RDS"])}"
-          Environment = "${var.environment}"
-          Author = "Effectual Terraform script"
-          Date = "${timestamp()}"
-         }
          
   timeouts {
      create = "240m"
@@ -138,18 +108,7 @@ resource "aws_db_parameter_group" "default" {
   description = format("Parameter group for %s", var.db_name)
   family      = var.family
 
-  lifecycle {
-    create_before_destroy = true
-    ignore_changes = [
-      name,
-      tags["Date"],
-    ]
-  }
   
-  tags = {
-    Author = "Effectual Terraform script"
-    Date = "${timestamp()}"
-  } 
 
 }
 
@@ -162,16 +121,4 @@ resource "aws_db_option_group" "db_group" {
   engine_name              = var.engine_name
   major_engine_version     = var.major_engine_version
 
-  lifecycle {
-    create_before_destroy = true
-    ignore_changes = [
-      name,
-      tags["Date"],
-    ]
-  }
   
-  tags = {
-    Author = "Effectual Terraform script"
-    Date = "${timestamp()}"
-  } 
-}
