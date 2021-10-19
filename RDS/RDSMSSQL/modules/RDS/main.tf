@@ -18,11 +18,6 @@ resource "aws_db_subnet_group" "group" {
   name       = format("%s-sngrp", lower(var.db_name))
   subnet_ids = local.var_az_subnets.value
   
-  lifecycle {
-    ignore_changes = [
-      tags["Date"],
-    ]
-  }
   
 }
 
