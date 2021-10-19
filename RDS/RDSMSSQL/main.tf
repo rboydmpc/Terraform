@@ -22,5 +22,6 @@ module "mod_rds" {
     iops                    = var.iops
     character_set_name      = var.character_set_name
     apply_immediately       = var.apply_immediately
+    password                = var.password
 }
 
