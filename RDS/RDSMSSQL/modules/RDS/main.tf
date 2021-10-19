@@ -1,5 +1,11 @@
 # Assign null values to empty string to make conpact() work
 
+
+locals {
+  vpc_subnet_az1 = length(regexall("^subnet", var.vpc_subnet_az1)) > 0 ? var.vpc_subnet_az1 : ""
+  vpc_subnet_az2 = length(regexall("^subnet", var.vpc_subnet_az2)) > 0 ? var.vpc_subnet_az2 : ""
+}
+
 locals {
   # Conditionally set the iops value.
   var_iops = {
@@ -9,7 +15,7 @@ locals {
     value = max(var.allocated_storage, (var.max_allocated_storage*0.02))
   }
   var_az_subnets = {
-    value = compact([var.vpc_subnet_az1, var.vpc_subnet_az2])
+    value = compact([local.vpc_subnet_az1, local.vpc_subnet_az2])
   }
 }
 
