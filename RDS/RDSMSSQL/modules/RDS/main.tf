@@ -9,7 +9,7 @@ locals {
     value = max(var.allocated_storage, (var.max_allocated_storage*0.02))
   }
   var_az_subnets = {
-    value = compact([local.vpc_subnet_az1, local.vpc_subnet_az2])
+    value = compact([var.vpc_subnet_az1, var.vpc_subnet_az2])
   }
 }
 
