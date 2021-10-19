@@ -1,9 +1,3 @@
-resource "random_string" "password" {
-  length           = 10
-  special          = false
-  override_special = "*&^$!#@"        #pufV#YiC!@
-}
-
 # Assign null values to empty string to make conpact() work
 locals {
   vpc_subnet_az1 = length(regexall("^subnet", var.vpc_subnet_az1)) > 0 ? var.vpc_subnet_az1 : ""
@@ -112,7 +106,7 @@ resource "aws_db_instance" "new_db" {
   parameter_group_name        = aws_db_parameter_group.default.id
   option_group_name           = aws_db_option_group.db_group.name
   username                    = lower(var.db_name)    
-  password                    = random_string.password.result
+  password                    = var.password
   skip_final_snapshot         = true
   final_snapshot_identifier   = "rds-${var.db_name}-final-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
   license_model               = "license-included"
