@@ -164,3 +164,8 @@ variable "apply_immediately" {
   type        = string
   default     = "false"
 }
+
+variable "password"{
+  description = "DB Password"
+  type        = string 
+}
