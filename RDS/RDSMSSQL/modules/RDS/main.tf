@@ -24,17 +24,17 @@ locals {
 }
 
 
-data "aws_iam_policy_document" "enhanced_monitoring" {
-  statement {
-    actions = [
-      "sts:AssumeRole",
-    ]
-    principals {
-      type        = "Service"
-      identifiers = ["monitoring.rds.amazonaws.com", "rds.amazonaws.com"]
-    }
-  }
-}
+#data "aws_iam_policy_document" "enhanced_monitoring" {
+#  statement {
+#    actions = [
+#      "sts:AssumeRole",
+#    ]
+#    principals {
+#      type        = "Service"
+#      identifiers = ["monitoring.rds.amazonaws.com", "rds.amazonaws.com"]
+#    }
+#  }
+#}
 
 #resource "aws_iam_role" "rds_iam_role" {
 #  name               = format("%s-rds-iam-role", lower(var.db_name))
