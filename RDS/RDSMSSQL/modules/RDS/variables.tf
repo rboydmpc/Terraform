@@ -168,9 +168,3 @@ variable "password" {
   type        = string
 }
 
-variable "date1" {
-  description = "DB Password"
-  type        = string
-  default     =  timestamp()
-}
-
