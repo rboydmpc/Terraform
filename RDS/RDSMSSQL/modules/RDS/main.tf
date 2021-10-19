@@ -29,7 +29,11 @@ resource "aws_db_subnet_group" "group" {
       tags["Date"],
     ]
   }
-  
+  tags = {
+    Name = "${var.db_name} DB subnet group"
+    Author = "Effectual Terraform script"
+    Date = "${timestamp()}"
+  }
   
 }
 
