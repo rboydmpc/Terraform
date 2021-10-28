@@ -23,6 +23,7 @@ module "vpc" {
   enable_dns_hostnames = true
 
   tags = {
+    Name = "test1"
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
 
