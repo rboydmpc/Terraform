@@ -41,7 +41,9 @@ variable "snapshot_identifier"{
     default = ""
 }
 
-
+locals {
+  test = "test-${random_string.suffix.result}"
+}
 #################################
 ##     Provider		   ##
 #################################
@@ -77,7 +79,7 @@ resource "aws_db_instance" "default" {
           Name = "test-tag"
           Environment = "Prod"
           Author = "Effectual Terraform script"
-          Test = "Test-${random_string.suffix.result}"
+          Test = "Test-${local.test}"
          }
 
   
