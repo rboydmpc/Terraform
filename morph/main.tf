@@ -75,7 +75,7 @@ resource "aws_db_instance" "default" {
   publicly_accessible = "true"
   tags = {
           Name = "test-tag"
-          Environment = "${timestamp()}"
+          Environment = "Prod"
           Author = "Effectual Terraform script"
          }
 
