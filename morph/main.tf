@@ -78,13 +78,6 @@ resource "aws_db_instance" "default" {
           Environment = "test"
           Author = "Effectual Terraform script"
          }
-  lifecycle {
-    ignore_changes = [
-      # Ignore changes to tags, e.g. because a management agent
-      # updates these based on some ruleset managed elsewhere.
-      tags,
-    ]
-  }
 
   
 }
@@ -95,16 +88,9 @@ resource "aws_db_parameter_group" "default" {
   name        = lower("${var.db_name}-${formatdate("YYYY-MM-DD-hhmm", timestamp())}-pg")
   description = format("Parameter group for %s", var.db_name)
   family      = "mysql5.7"
-
-  lifecycle {
-    create_before_destroy = true
-    ignore_changes = [
-      name,
-      tags["Date"],
-    ]
-  }
   
   tags = {
+    Name = "test-tag"
     Author = "Effectual Terraform script"
     Date = "${timestamp()}"
   } 
@@ -119,15 +105,9 @@ resource "aws_db_option_group" "db_group" {
   engine_name              = "mysql"
   major_engine_version     = "5.7"
 
-  lifecycle {
-    create_before_destroy = true
-    ignore_changes = [
-      name,
-      tags["Date"],
-    ]
-  }
   
   tags = {
+    Name = "test-tag" 
     Author = "Effectual Terraform script"
     Date = "${timestamp()}"
   } 
