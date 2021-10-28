@@ -1,5 +1,5 @@
 #################################
-##			Variables		   ##
+##     Variables	       ##
 #################################
 variable "access_key" {
 
@@ -77,10 +77,12 @@ resource "aws_db_instance" "default" {
           Name = "test-tag"
           Environment = "Prod"
           Author = "Effectual Terraform script"
+          Test = "Test-${random_string.suffix.result}"
          }
 
   
 }
+
 /**
   Parameter Group
 */
@@ -90,7 +92,7 @@ resource "aws_db_parameter_group" "default" {
   family      = "mysql5.7"
   
   tags = {
-    Name = "test-tag"
+    Name = "test-tag1"
     Author = "Effectual Terraform script"
   } 
 
@@ -106,8 +108,9 @@ resource "aws_db_option_group" "db_group" {
 
   
   tags = {
-    Name = "test-tag" 
+    Name = "test-tag2" 
     Author = "Effectual Terraform script"
   } 
 }
+
 
