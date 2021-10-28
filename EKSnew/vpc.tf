@@ -24,7 +24,7 @@ module "vpc" {
 
   tags = {
     Name = "test1"
-    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${random_string.suffix.result}" = "shared"
   }
 
   public_subnet_tags = {
