@@ -41,17 +41,9 @@ variable "snapshot_identifier"{
     default = ""
 }
 
-#variable "var1" {
-#  type        = list(string)
-#  default = [
-#    "5.5",
-#    "5.6",
-#    "5.7",
-#    "8.0"
-#  ]
-#}
+
 #################################
-##			Provider		   ##
+##     Provider		   ##
 #################################
 provider "aws" {
     region = "us-east-1"
@@ -60,7 +52,7 @@ provider "aws" {
 }
 
 #################################
-##		  Resources         ##
+##         Resources         ##
 #################################
 resource "aws_db_instance" "default" {
   allocated_storage    = var.allocated
@@ -69,7 +61,7 @@ resource "aws_db_instance" "default" {
   engine               = "mysql"
   engine_version       = "5.7"
   instance_class       = "db.t2.micro"
-  name                 = "mydb"
+  name                 = "${timestamp()}"
   username             = var.db_user
   password             = var.db_password
   parameter_group_name = "${aws_db_parameter_group.default.id}"
@@ -85,7 +77,6 @@ resource "aws_db_instance" "default" {
           Name = "test-tag"
           Environment = "test"
           Author = "Effectual Terraform script"
-          Date = "${timestamp()}"
          }
   lifecycle {
     ignore_changes = [
