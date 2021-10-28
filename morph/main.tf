@@ -61,7 +61,7 @@ resource "aws_db_instance" "default" {
   engine               = "mysql"
   engine_version       = "5.7"
   instance_class       = "db.t2.micro"
-  name                 = "${timestamp()}"
+  name                 = "test22131"
   username             = var.db_user
   password             = var.db_password
   parameter_group_name = "${aws_db_parameter_group.default.id}"
@@ -75,7 +75,7 @@ resource "aws_db_instance" "default" {
   publicly_accessible = "true"
   tags = {
           Name = "test-tag"
-          Environment = "test"
+          Environment = "${timestamp()}"
           Author = "Effectual Terraform script"
          }
 
