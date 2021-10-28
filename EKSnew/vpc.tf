@@ -1,7 +1,7 @@
 data "aws_availability_zones" "available" {}
 
 locals {
-  cluster_name = "education-eks-test1"
+  cluster_name = "education-eks-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
