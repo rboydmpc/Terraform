@@ -1,10 +1,6 @@
-resource "random_string" "password" {
-  length           = 10
-  special          = false
-  override_special = "*&^$!#@"        #pufV#YiC!@
-}
-
 # Assign null values to empty string to make conpact() work
+
+
 locals {
   vpc_subnet_az1 = length(regexall("^subnet", var.vpc_subnet_az1)) > 0 ? var.vpc_subnet_az1 : ""
   vpc_subnet_az2 = length(regexall("^subnet", var.vpc_subnet_az2)) > 0 ? var.vpc_subnet_az2 : ""
@@ -21,30 +17,10 @@ locals {
   var_az_subnets = {
     value = compact([local.vpc_subnet_az1, local.vpc_subnet_az2])
   }
+  time = "${timestamp()}"
+  
 }
 
-
-data "aws_iam_policy_document" "enhanced_monitoring" {
-  statement {
-    actions = [
-      "sts:AssumeRole",
-    ]
-    principals {
-      type        = "Service"
-      identifiers = ["monitoring.rds.amazonaws.com", "rds.amazonaws.com"]
-    }
-  }
-}
-
-resource "aws_iam_role" "rds_iam_role" {
-  name               = format("%s-rds-iam-role", lower(var.db_name))
-  assume_role_policy = data.aws_iam_policy_document.enhanced_monitoring.json
-}
-
-resource "aws_iam_role_policy_attachment" "enhanced_monitoring" {
-    role       = aws_iam_role.rds_iam_role.name
-    policy_arn = "arn:aws-us-gov:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
-}
 
 resource "aws_db_subnet_group" "group" {
   name       = format("%s-sngrp", lower(var.db_name))
@@ -55,12 +31,11 @@ resource "aws_db_subnet_group" "group" {
       tags["Date"],
     ]
   }
-  
   tags = {
-    Name = "${var.db_name} DB subnet group"
     Author = "Effectual Terraform script"
-    Date = "${timestamp()}"
+    Date = "${local.time}"
   }
+  
 }
 
 data "aws_subnet" "this_subnet" {
@@ -80,7 +55,7 @@ resource "aws_security_group" "db_sg" {
     from_port   = var.db_port
     to_port     = var.db_port
     protocol    = "tcp"
-    cidr_blocks = ["${data.aws_vpc.selected.cidr_block}", var.workspaces_cidr]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0
@@ -88,17 +63,7 @@ resource "aws_security_group" "db_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  lifecycle {
-    ignore_changes = [
-      tags["Date"],
-    ]
-  }
 
-  tags = {
-    Name = "${var.db_name} Database Security Group"
-    Author = "Effectual Terraform script"
-    Date = "${timestamp()}"
-  }
 }
 
 resource "aws_db_instance" "new_db" {
@@ -116,9 +81,9 @@ resource "aws_db_instance" "new_db" {
   backup_window               = var.backup_window
   maintenance_window          = var.maintenance_window
   copy_tags_to_snapshot       = true
-  monitoring_interval         = 1
-  monitoring_role_arn         = aws_iam_role.rds_iam_role.arn
-  enabled_cloudwatch_logs_exports = ["agent", "error"] 
+  #monitoring_interval         = 1
+  #monitoring_role_arn         = aws_iam_role.rds_iam_role.arn
+  #enabled_cloudwatch_logs_exports = ["agent", "error"] 
   engine                      = var.engine_name
   engine_version              = var.engine_version
   character_set_name          = var.character_set_name
@@ -134,24 +99,13 @@ resource "aws_db_instance" "new_db" {
   parameter_group_name        = aws_db_parameter_group.default.id
   option_group_name           = aws_db_option_group.db_group.name
   username                    = lower(var.db_name)    
-  password                    = random_string.password.result
+  password                    = var.password
   skip_final_snapshot         = true
   final_snapshot_identifier   = "rds-${var.db_name}-final-${formatdate("YYYY-MM-DD-hhmm", timestamp())}"
   license_model               = "license-included"
-  snapshot_identifier                 = var.snapshot_id
+  snapshot_identifier         = var.snapshot_id
   
-  lifecycle {
-    ignore_changes = [
-      tags["Date"],
-    ]
-  }
 
-  tags = {
-          Name = "${join("-", ["${var.db_name}", "${var.client}", "RDS"])}"
-          Environment = "${var.environment}"
-          Author = "Effectual Terraform script"
-          Date = "${timestamp()}"
-         }
          
   timeouts {
      create = "240m"
@@ -166,18 +120,7 @@ resource "aws_db_parameter_group" "default" {
   description = format("Parameter group for %s", var.db_name)
   family      = var.family
 
-  lifecycle {
-    create_before_destroy = true
-    ignore_changes = [
-      name,
-      tags["Date"],
-    ]
-  }
   
-  tags = {
-    Author = "Effectual Terraform script"
-    Date = "${timestamp()}"
-  } 
 
 }
 
@@ -189,17 +132,5 @@ resource "aws_db_option_group" "db_group" {
   option_group_description = format("Option group for %s", var.db_name)
   engine_name              = var.engine_name
   major_engine_version     = var.major_engine_version
-
-  lifecycle {
-    create_before_destroy = true
-    ignore_changes = [
-      name,
-      tags["Date"],
-    ]
-  }
-  
-  tags = {
-    Author = "Effectual Terraform script"
-    Date = "${timestamp()}"
-  } 
 }
+  

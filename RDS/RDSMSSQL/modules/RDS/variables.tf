@@ -2,7 +2,7 @@
     Provider variables
 */
 variable "region" {
-  #default = "us-gov-west-1"
+  #default = "us-west-1"
 }
 
 variable "access_key"{
@@ -19,16 +19,11 @@ variable "secret_key" {
 /**
     Generic variables
 */
-variable "client"{
-  description = "Name of the client"
-  type        = string 
-  default     = "Deloitte / Ginnie Mae"
-}
 
 variable "environment"{
   description = "Environment."
   type        = string 
-  #default     = ""
+  default     = "PRD"
 }
 
 
@@ -45,11 +40,6 @@ variable "vpc_subnet_az2"{
   type        = string  
 }
 
-variable "workspaces_cidr"{
-  description = "CIDR block of the Workspaces subnet"
-  type        = string  
-  #default    = "10.50.0.0/20"
-}
 
 /***
     Variables required to create a parameter group
@@ -66,13 +56,13 @@ variable "family" {
 variable "engine_name" {
   description = "Specifies the name of the engine that this option group should be associated with"
   type        = string
-  #default     = "sqlserver-ee"
+  default     = "sqlserver-ee"
 }
 
 variable "major_engine_version" {
   description = "Specifies the major version of the engine that this option group should be associated with"
   type        = string
-  #default     = "15.00"
+  default     = "15.00"
 }
 
 /***
@@ -172,3 +162,9 @@ variable "apply_immediately" {
   description = "apply changes immediately do not wait for maintenance window "
   type        = string
 }
+
+variable "password" {
+  description = "DB Password"
+  type        = string
+}
+

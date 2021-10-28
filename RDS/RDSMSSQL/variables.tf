@@ -4,7 +4,7 @@
 variable "region" {
   description = "Region where the resources will be created"
   type        = string 
-  default = "us-gov-west-1"
+  default = "us-east-1"
 }
 
 variable "access_key"{
@@ -17,59 +17,19 @@ variable "secret_key" {
   type        = string 
 }
 
-variable "soc_region" {
-  description = "Region for the SOC account (to create the Secret)"
-  type        = string 
-  default = "us-gov-west-1"
-}
-
-variable "soc_access_key"{
-  description = "Access Key for the SOC account (to create the Secret)"
-  type        = string 
-}
-
-variable "soc_secret_key" {
-  description = "Secret Key for the SOC account (to create the Secret)"
-  type        = string 
-}
-
 /**
     Generic variables
 */
-variable "client"{
-  description = "Name of the client"
-  type        = string 
-  default     = "GinnieMae"
-}
-
-variable "account_name" { 
-  default = "" 
-}
 
 variable "environment"{
   description = "Environment"
   type        = string 
-  default     = ""
+  default     = "PRD"
 }
 
 /***
     Variables required to create a secret
 **/
-#variable "secret_arn"{
-#   description = "The ARN of an existing secret, if the values should be updated. Leave blank if a new Secret needs to be created"
-#   type = string
-#   default = ""
-#}
-
-variable "secret_cmk_id" {
-  description = "The ID of the Customer Managed Key used to encrypt the Secret"
-  type        = string
-}
-
-variable "cicd_role_arn"{
-  description = "The ARN of the CICD Role that will be given access to the Secret"
-  type        = string
-}
 
 /**
     Variables required to create the Security Group, IAM Role and Policy    
@@ -77,20 +37,15 @@ variable "cicd_role_arn"{
 variable "vpc_subnet_az1"{
   description = "ID of the VPC subnet in the 1st Availability Zone"
   type        = string
-  default     = ""
+  default     = "subnet-ed470bc3"
 }
 
 variable "vpc_subnet_az2"{
   description = "ID of the VPC subnet in the 2nd Availability Zone"
   type        = string  
-  default     = ""
+  default     = "subnet-927736f5"
 }
 
-variable "workspaces_cidr"{
-  description = "CIDR block of the Workspaces subnet"
-  type        = string  
-  #default    = "10.57.0.0/20"
-}
 
 /***
     Variables required to create a parameter group
@@ -98,6 +53,7 @@ variable "workspaces_cidr"{
 variable "family" {
   description = "The family of the DB parameter group"
   type        = string
+  default     = "sqlserver-se-15.0"
 }
 
 /***
@@ -106,11 +62,13 @@ variable "family" {
 variable "engine_name" {
   description = "Specifies the name of the engine that this option group should be associated with"
   type        = string
+  default     = "sqlserver-se"
 }
 
 variable "major_engine_version" {
   description = "Specifies the major version of the engine that this option group should be associated with"
   type        = string
+  default     = "15.00"
 }
 
 /***
@@ -154,12 +112,13 @@ variable "max_allocated_storage" {
 variable "engine_version" {
   description = "The engine version to use"
   type        = string
+  default     = "15.00.4043.16.v1"
 }
 
 variable "character_set_name" {
   description = "(Optional) The character set name to use for DB encoding in Oracle instances. This can't be changed. See Oracle Character Sets Supported in Amazon RDS for more information"
   type        = string
-  default     = ""
+  default     = "AL32UTF8"
 }
 
 variable "instance_class"{
@@ -178,12 +137,6 @@ variable "iops" {
   description = "The amount of provisioned IOPS. Setting this implies a storage_type of 'io1'."
   type    = number
   default = 0   # @TODO use null as default when Morpheus UI can support
-}
-
-variable "snapshot_id"{
-  description = "Snapshot ID"
-  type        = string
-  default = ""
 }
 
 
@@ -210,4 +163,9 @@ variable "apply_immediately" {
   description = "apply changes immediately do not wait for maintenance window "
   type        = string
   default     = "false"
+}
+
+variable "password"{
+  description = "DB Password"
+  type        = string 
 }
