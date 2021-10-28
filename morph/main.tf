@@ -92,7 +92,6 @@ resource "aws_db_parameter_group" "default" {
   tags = {
     Name = "test-tag"
     Author = "Effectual Terraform script"
-    Date = "${timestamp()}"
   } 
 
 }
@@ -109,7 +108,6 @@ resource "aws_db_option_group" "db_group" {
   tags = {
     Name = "test-tag" 
     Author = "Effectual Terraform script"
-    Date = "${timestamp()}"
   } 
 }
 
