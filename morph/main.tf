@@ -1,6 +1,11 @@
 #################################
 ##     Variables	       ##
 #################################
+variable "Testing" {
+    description = "Testing"
+    default = ""
+}
+
 variable "access_key" {
 
 }
