@@ -84,7 +84,7 @@ resource "aws_db_instance" "default" {
           Name = "test-tag"
           Environment = "Prod"
           Author = "Effectual Terraform script"
-          Test = "Test-${local.test}"
+          #Test = "Test-${local.test}"
          }
 
   
