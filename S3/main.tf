@@ -15,7 +15,7 @@ variable "acl_value" {
 }
 
 resource "aws_s3_bucket" "demos3" {
-    bucket = boyd77373336ff
+    bucket = "boyd77373336ff"
     acl = var.acl_value
 
     tags = {
