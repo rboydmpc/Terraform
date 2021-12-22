@@ -7,7 +7,6 @@ variable "secret_key" {
 variable "aws_account_id" {
   type = number
   description = "AWS account to deploy RDS Mysql cluster and resources."
-  default     = "<%=customOptions.awsAccountID%>"
 }
 
 variable "vpc_id" {
