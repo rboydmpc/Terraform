@@ -1,3 +1,13 @@
+terraform {
+   required_version = ">= 0.12.31"
+
+   required_providers {
+     aws = "= 3.68"
+   }
+}
+
+
+
 provider "aws" {
     region = "us-east-1"
     access_key = var.access_key
@@ -8,14 +18,18 @@ variable "access_key" {}
 
 variable "secret_key" {}
 
-variable "test" {}
+variable "bucket_name" {}
 
 variable "acl_value" {
     default = "private"
 }
 
+variable "test" {
+    default = ""
+}
+
 resource "aws_s3_bucket" "demos3" {
-    bucket = boyd77373336ff
+    bucket = var.bucket_name
     acl = var.acl_value
 
     tags = {
