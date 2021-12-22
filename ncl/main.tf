@@ -120,7 +120,7 @@ data "aws_iam_policy_document" "rds_enhanced_monitoring" {
 
 # Master DB
 module "master" {
-  source = "terraform-aws-modules/rds/aws"
+  source = "./terraform-aws-modules/rds/aws"
 
   identifier = "${lower(local.db_cluster_name)}-${random_id.rds_random_id.hex}"
 
@@ -198,7 +198,7 @@ module "master" {
 ############
 module "replica" {
 
-  source = "terraform-aws-modules/rds/aws"
+  source = "./terraform-aws-modules/rds/aws"
 
   create_db_instance = var.create_db_replica ? true : false
   identifier         = "${lower(local.db_cluster_name)}-replica-${random_id.rds_random_id.hex}"
