@@ -23,7 +23,7 @@ locals {
   db_major_engine_version = var.rds_major_engine_version
   db_engine_version       = var.rds_engine_version
   db_engine_family        = var.rds_engine_family
-  db_cluster_name         = "${lower(var.project_name)}-mysql-db"
+  db_cluster_name         = "${lower(var.project_name)}mysqldb"
   db_instance_class       = var.rds_instance_type
   db_allocated_storage    = var.rds_disk_size
   db_port                 = 3306
