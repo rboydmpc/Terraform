@@ -1,8 +1,6 @@
 variable "access_key" {
-  default = ""
 }
 variable "secret_key" {
-  default = ""
 }
 
 variable "aws_account_id" {
