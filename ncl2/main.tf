@@ -122,7 +122,7 @@ data "aws_iam_policy_document" "rds_enhanced_monitoring" {
 module "master" {
   source = "terraform-aws-modules/rds/aws"
 
-  identifier = "${lower(local.db_cluster_name)}_${random_id.rds_random_id.hex}"
+  identifier = "${lower(local.db_cluster_name)}${random_id.rds_random_id.hex}"
 
   engine               = local.db_engine
   major_engine_version = local.db_major_engine_version
