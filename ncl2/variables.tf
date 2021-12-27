@@ -85,7 +85,7 @@ variable "rds_engine_family" {
 variable "rds_instance_type" {
   type = string
   description = "RDS Mysql cluster instance type."
-  default = "db.t2.micro"
+  default = "db.t3.small"
 }
 
 variable "rds_disk_size" {
