@@ -74,7 +74,6 @@ variable "rds_engine_version" {
 variable "rds_major_engine_version" {
   type = string
   description = "RDS Mysql major engine version."
-  default = "5.7"
 }
 
 variable "rds_engine_family" {
