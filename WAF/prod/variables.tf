@@ -3,3 +3,5 @@ variable "region" {
   description = "AWS Region"
   type        = string 
 }
+variable "access_key" {}
+variable "secret_key" {}
