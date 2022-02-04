@@ -28,6 +28,18 @@ variable "test" {
     default = ""
 }
 
+variable "ami_id" {
+      type = string
+
+#      validation {
+#        condition = (
+#          length(var.ami_id) > 4 &&
+#          substr(var.ami_id, 0, 4) == "ami-"
+#        )
+#        error_message = "The ami_id value must start with \"ami-\"."
+#      }
+    }
+
 resource "aws_s3_bucket" "demos3" {
     bucket = var.bucket_name
     acl = var.acl_value
